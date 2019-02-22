@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Earn engine</string>
+    <string name="important">Important</string>
+    <string name="value">Value</string>
+    <string name="banner_id">Banner ID</string>
+    <string name="interstitialID">Interstitial ID</string>
+    <string name="impression_points">Impression Points</string>
+    <string name="points_per_rupee">PointsPerRupee</string>
+    <string name="title">Title</string>
+    <string name="link">Link</string>
+</resources>
