@@ -19,4 +19,9 @@
         android:id="@+id/fabAddOverview"
         android:icon="@drawable/ic_graphic_eq_black_24dp"
         android:title="Overview" />
+
+    <item
+        android:id="@+id/fabAddWithdrawal"
+        android:icon="@drawable/ic_attach_money_black_24dp"
+        android:title="Withdraws" />
 </menu>

@@ -57,7 +57,7 @@ class MainActivity : AppCompatActivity() {
             }
             R.id.fabAddOverview -> {
                 val intent = Intent(this, WebActivity::class.java)
-                intent.putExtra("URL", "https://www.google.com")
+                intent.putExtra("URL", "https://console.firebase.google.com/u/0/project/earntobank-8835b/overview")
                 startActivity(intent)
             }
             R.id.fabAddTelegram -> {
@@ -65,8 +65,11 @@ class MainActivity : AppCompatActivity() {
             }
             R.id.fabAddUsers -> {
                 val intent = Intent(this, WebActivity::class.java)
-                intent.putExtra("URL", "https://www.google.com")
+                intent.putExtra("URL", "https://console.firebase.google.com/u/0/project/earntobank-8835b/authentication/users")
                 startActivity(intent)
+            }
+            R.id.fabAddWithdrawal -> {
+                startActivity(Intent(this,HistoryActivity::class.java))
             }
         }
 
