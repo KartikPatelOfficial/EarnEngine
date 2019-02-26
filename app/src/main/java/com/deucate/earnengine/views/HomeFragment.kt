@@ -99,9 +99,6 @@ class HomeFragment : Fragment() {
                             PointsPerRupee = result.getLong("PointsPerRupee")!!
                         )
                     )
-                } else {
-                    AlertDialog.Builder(context!!)
-                        .setMessage("Probably database error contact developer of this app.").show()
                 }
             } else {
                 AlertDialog.Builder(context!!).setTitle("Error")

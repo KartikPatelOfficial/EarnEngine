@@ -30,6 +30,8 @@ class AppsActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private val currentFragment = MutableLiveData<Fragment>()
     private var fragmentID = 8080
 
+    private lateinit var appName:String
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_apps)
@@ -54,6 +56,12 @@ class AppsActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             }
         })
 
+        appName = intent.getStringExtra("AppName")
+
+        val fragment = HomeFragment()
+        fragment.appName = appName
+        currentFragment.value = fragment
+
         nav_view.setNavigationItemSelectedListener(this)
     }
 
@@ -70,12 +78,12 @@ class AppsActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         when (item.itemId) {
             R.id.fabHome -> {
                 val fragment = HomeFragment()
-                fragment.appName = intent.getStringExtra("AppName")
+                fragment.appName = appName
                 currentFragment.value = fragment
             }
             R.id.fabAddHome -> {
                 val fragment = AddHomeFragment()
-                fragment.appName = intent.getStringExtra("AppName")
+                fragment.appName = appName
                 currentFragment.value = fragment
             }
             R.id.fabAddOverview -> {
@@ -88,7 +96,7 @@ class AppsActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             }
             R.id.fabAddTelegram -> {
                 val fragment = TelegramFragment()
-                fragment.appName = intent.getStringExtra("AppName")
+                fragment.appName = appName
                 currentFragment.value = fragment
             }
             R.id.fabAddUsers -> {
@@ -100,7 +108,17 @@ class AppsActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 startActivity(intent)
             }
             R.id.fabAddWithdrawal -> {
-                startActivity(Intent(this, HistoryActivity::class.java))
+                val intent = Intent(this, HistoryActivity::class.java)
+                intent.putExtra("AppName",appName)
+                startActivity(intent)
+            }
+            R.id.fabNotification -> {
+                val intent = Intent(this, WebActivity::class.java)
+                intent.putExtra(
+                    "URL",
+                    "https://console.firebase.google.com/u/0/project/earntobank-8835b/notification"
+                )
+                startActivity(intent)
             }
         }
 

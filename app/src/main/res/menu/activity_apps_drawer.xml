@@ -30,4 +30,9 @@
         android:icon="@drawable/ic_attach_money_black_24dp"
         android:title="Withdraws" />
 
+    <item
+        android:id="@+id/fabNotification"
+        android:icon="@drawable/ic_notifications_black_24dp"
+        android:title="Notifications" />
+
 </menu>

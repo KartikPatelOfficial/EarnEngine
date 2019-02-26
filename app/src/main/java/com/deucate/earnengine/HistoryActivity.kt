@@ -6,12 +6,13 @@ import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.deucate.earnengine.controller.HistoryAdapter
 import com.deucate.earnengine.model.History
+import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_history.*
 
 class HistoryActivity : AppCompatActivity() {
 
-    private val db = FirebaseFirestore.getInstance()
+    private lateinit var db: DocumentReference
 
     private val histories = ArrayList<History>()
     private lateinit var adapter: HistoryAdapter
@@ -20,20 +21,25 @@ class HistoryActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_history)
 
+        val appName = intent.getStringExtra("AppName")
+        db = FirebaseFirestore.getInstance().collection("Apps")
+            .document(appName)
+
         adapter = HistoryAdapter(
             histories = histories,
             listener = object : HistoryAdapter.OnClickListener {
                 override fun onClickCard(position: Int) {
 
 
-                    val data = HashMap<String,Any>()
+                    val data = HashMap<String, Any>()
                     data["Status"] = !histories[position].status
 
-                    db.collection(getString(R.string.withdrawel)).document(histories[position].id).update(data).addOnCompleteListener {
-                        if (it.isSuccessful){
+                    db.collection(getString(R.string.withdrawel)).document(histories[position].id)
+                        .update(data).addOnCompleteListener {
+                        if (it.isSuccessful) {
                             histories[position].status = !histories[position].status
                             adapter.notifyItemChanged(position)
-                        }else{
+                        } else {
                             AlertDialog.Builder(this@HistoryActivity).setTitle("Error")
                                 .setMessage(it.exception!!.localizedMessage).show()
                         }
