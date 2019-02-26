@@ -4,8 +4,10 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.deucate.earnengine.controller.AppsAdapter
 import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.android.synthetic.main.activity_home.*
 
 class HomeActivity : AppCompatActivity() {
 
@@ -20,11 +22,14 @@ class HomeActivity : AppCompatActivity() {
 
         adapter = AppsAdapter(apps, object : AppsAdapter.OnClickListener {
             override fun onClickCard(position: Int) {
-                val intent = Intent(this@HomeActivity, MainActivity::class.java)
+                val intent = Intent(this@HomeActivity, AppsActivity::class.java)
                 intent.putExtra("AppName", apps[position])
                 startActivity(intent)
             }
         })
+
+        homeRecyclerView.adapter = adapter
+        homeRecyclerView.layoutManager = LinearLayoutManager(this)
 
         db.collection("Apps").get().addOnCompleteListener {
             if (it.isSuccessful) {
@@ -35,7 +40,7 @@ class HomeActivity : AppCompatActivity() {
                     }
                     adapter.notifyDataSetChanged()
                 } else {
-                    notifyNoAppsFound(it.exception!!.localizedMessage!!)
+                    notifyNoAppsFound("Data not found create from scratch.")
                 }
             } else {
                 notifyNoAppsFound(it.exception!!.localizedMessage!!)
@@ -43,7 +48,7 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
-    private fun notifyNoAppsFound(localizedMessage: String) {
+    private fun notifyNoAppsFound(localizedMessage: String?) {
         AlertDialog.Builder(this).setTitle("Error").setMessage(localizedMessage).show()
     }
 

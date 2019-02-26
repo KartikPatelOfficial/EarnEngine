@@ -1,6 +1,5 @@
 package com.deucate.earnengine
 
-import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.navigation.NavigationView
 import androidx.core.view.GravityCompat
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -15,7 +14,6 @@ import android.text.InputType
 import android.text.SpannableStringBuilder
 import android.text.TextWatcher
 import android.view.LayoutInflater
-import android.view.Menu
 import android.view.MenuItem
 import android.widget.EditText
 import android.widget.Toast
@@ -38,11 +36,6 @@ class AppsActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         setContentView(R.layout.activity_apps)
         setSupportActionBar(toolbar)
 
-        fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
-        }
-
         val toggle = ActionBarDrawerToggle(
             this,
             drawer_layout,
@@ -53,7 +46,8 @@ class AppsActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         drawer_layout.addDrawerListener(toggle)
         toggle.syncState()
 
-        importantValueDB = FirebaseFirestore.getInstance().collection(getString(R.string.important))
+        importantValueDB = FirebaseFirestore.getInstance().collection("Apps")
+            .document(intent.getStringExtra("AppName")).collection(getString(R.string.important))
             .document(getString(R.string.value))
 
         getData()
@@ -75,14 +69,9 @@ class AppsActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu, menu)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-
-        when (item!!.itemId) {
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        // Handle navigation view item clicks here.
+        when (item.itemId) {
             R.id.fabAddHome -> {
                 createAlertForUpdate()
             }
@@ -107,32 +96,6 @@ class AppsActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             }
             R.id.fabAddWithdrawal -> {
                 startActivity(Intent(this, HistoryActivity::class.java))
-            }
-        }
-
-        return super.onOptionsItemSelected(item)
-    }
-
-    override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        // Handle navigation view item clicks here.
-        when (item.itemId) {
-            R.id.nav_camera -> {
-                // Handle the camera action
-            }
-            R.id.nav_gallery -> {
-
-            }
-            R.id.nav_slideshow -> {
-
-            }
-            R.id.nav_manage -> {
-
-            }
-            R.id.nav_share -> {
-
-            }
-            R.id.nav_send -> {
-
             }
         }
 
