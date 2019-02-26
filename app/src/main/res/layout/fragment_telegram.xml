@@ -7,6 +7,7 @@
     tools:context=".views.TelegramFragment">
 
     <androidx.recyclerview.widget.RecyclerView
+        android:layout_margin="16dp"
         android:id="@+id/recyclerViewTelegram"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
