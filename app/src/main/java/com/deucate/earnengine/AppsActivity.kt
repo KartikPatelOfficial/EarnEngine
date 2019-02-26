@@ -1,5 +1,11 @@
 package com.deucate.earnengine
 
+import com.google.android.material.snackbar.Snackbar
+import com.google.android.material.navigation.NavigationView
+import androidx.core.view.GravityCompat
+import androidx.appcompat.app.ActionBarDrawerToggle
+import kotlinx.android.synthetic.main.activity_apps.*
+import kotlinx.android.synthetic.main.app_bar_apps.*
 import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -23,13 +29,29 @@ import kotlinx.android.synthetic.main.alert_update_details.view.*
 import java.text.SimpleDateFormat
 import java.util.*
 
-class MainActivity : AppCompatActivity() {
+class AppsActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     private lateinit var importantValueDB: DocumentReference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_apps)
+        setSupportActionBar(toolbar)
+
+        fab.setOnClickListener { view ->
+            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                .setAction("Action", null).show()
+        }
+
+        val toggle = ActionBarDrawerToggle(
+            this,
+            drawer_layout,
+            toolbar,
+            R.string.navigation_drawer_open,
+            R.string.navigation_drawer_close
+        )
+        drawer_layout.addDrawerListener(toggle)
+        toggle.syncState()
 
         importantValueDB = FirebaseFirestore.getInstance().collection(getString(R.string.important))
             .document(getString(R.string.value))
@@ -42,6 +64,15 @@ class MainActivity : AppCompatActivity() {
         addTextWatcher(mainInterstitialID, "InterstitialAdID")
         addTextWatcher(mainPointsPerRupee, "PointsPerRupee")
 
+        nav_view.setNavigationItemSelectedListener(this)
+    }
+
+    override fun onBackPressed() {
+        if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
+            drawer_layout.closeDrawer(GravityCompat.START)
+        } else {
+            super.onBackPressed()
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -57,7 +88,10 @@ class MainActivity : AppCompatActivity() {
             }
             R.id.fabAddOverview -> {
                 val intent = Intent(this, WebActivity::class.java)
-                intent.putExtra("URL", "https://console.firebase.google.com/u/0/project/earntobank-8835b/overview")
+                intent.putExtra(
+                    "URL",
+                    "https://console.firebase.google.com/u/0/project/earntobank-8835b/overview"
+                )
                 startActivity(intent)
             }
             R.id.fabAddTelegram -> {
@@ -65,16 +99,47 @@ class MainActivity : AppCompatActivity() {
             }
             R.id.fabAddUsers -> {
                 val intent = Intent(this, WebActivity::class.java)
-                intent.putExtra("URL", "https://console.firebase.google.com/u/0/project/earntobank-8835b/authentication/users")
+                intent.putExtra(
+                    "URL",
+                    "https://console.firebase.google.com/u/0/project/earntobank-8835b/authentication/users"
+                )
                 startActivity(intent)
             }
             R.id.fabAddWithdrawal -> {
-                startActivity(Intent(this,HistoryActivity::class.java))
+                startActivity(Intent(this, HistoryActivity::class.java))
             }
         }
 
         return super.onOptionsItemSelected(item)
     }
+
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        // Handle navigation view item clicks here.
+        when (item.itemId) {
+            R.id.nav_camera -> {
+                // Handle the camera action
+            }
+            R.id.nav_gallery -> {
+
+            }
+            R.id.nav_slideshow -> {
+
+            }
+            R.id.nav_manage -> {
+
+            }
+            R.id.nav_share -> {
+
+            }
+            R.id.nav_send -> {
+
+            }
+        }
+
+        drawer_layout.closeDrawer(GravityCompat.START)
+        return true
+    }
+
 
     @SuppressLint("InflateParams", "SimpleDateFormat")
     private fun createAlertForUpdate(isHome: Boolean = true) {
@@ -104,7 +169,7 @@ class MainActivity : AppCompatActivity() {
                             Toast.makeText(this, "Data added successfully", Toast.LENGTH_SHORT)
                                 .show()
                         } else {
-                            AlertDialog.Builder(this@MainActivity)
+                            AlertDialog.Builder(this@AppsActivity)
                                 .setMessage(it.exception!!.localizedMessage).setTitle("Error")
                                 .show()
                         }
@@ -137,7 +202,7 @@ class MainActivity : AppCompatActivity() {
 
                 importantValueDB.update(data).addOnCompleteListener {
                     if (!it.isSuccessful) {
-                        AlertDialog.Builder(this@MainActivity)
+                        AlertDialog.Builder(this@AppsActivity)
                             .setMessage(it.exception!!.localizedMessage).setTitle("Error").show()
                     }
                 }
