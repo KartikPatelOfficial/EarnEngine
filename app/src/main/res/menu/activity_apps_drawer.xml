@@ -4,9 +4,14 @@
     tools:showIn="navigation_view">
 
     <item
+            android:id="@+id/fabHome"
+            android:icon="@drawable/ic_home_black_24dp"
+            android:title="Home" />
+
+    <item
         android:id="@+id/fabAddHome"
-        android:icon="@drawable/ic_home_black_24dp"
-        android:title="Home" />
+        android:icon="@drawable/ic_add_black_24dp"
+        android:title="Add Home" />
     <item
         android:id="@+id/fabAddTelegram"
         android:icon="@drawable/ic_airplanemode_active_black_24dp"

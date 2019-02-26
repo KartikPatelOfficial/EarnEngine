@@ -1,51 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".AppsActivity"
     tools:ignore="AutoFill">
 
-    <LinearLayout
-        android:id="@+id/linearLayout"
+    <FrameLayout
+        android:id="@+id/mainContainer"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:orientation="vertical"
-        android:padding="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <EditText
-            android:id="@+id/mainBannerID"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/banner_id"
-            android:inputType="text" />
-
-        <EditText
-            android:id="@+id/mainInterstitialID"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/interstitialID"
-            android:inputType="text" />
-
-        <EditText
-            android:id="@+id/mainImpressionPoint"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/impression_points"
-            android:inputType="text" />
-
-        <EditText
-            android:id="@+id/mainPointsPerRupee"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/points_per_rupee"
-            android:inputType="text" />
-
-    </LinearLayout>
+        android:layout_height="match_parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
