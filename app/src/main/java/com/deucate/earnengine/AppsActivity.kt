@@ -30,7 +30,7 @@ class AppsActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private val currentFragment = MutableLiveData<Fragment>()
     private var fragmentID = 8080
 
-    private lateinit var appName:String
+    private lateinit var appName: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -87,12 +87,10 @@ class AppsActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 currentFragment.value = fragment
             }
             R.id.fabAddOverview -> {
-                val intent = Intent(this, WebActivity::class.java)
-                intent.putExtra(
-                    "URL",
+                val fragment = WebFragment()
+                fragment.url =
                     "https://console.firebase.google.com/u/0/project/earntobank-8835b/overview"
-                )
-                startActivity(intent)
+                currentFragment.value = fragment
             }
             R.id.fabAddTelegram -> {
                 val fragment = TelegramFragment()
@@ -100,25 +98,21 @@ class AppsActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 currentFragment.value = fragment
             }
             R.id.fabAddUsers -> {
-                val intent = Intent(this, WebActivity::class.java)
-                intent.putExtra(
-                    "URL",
+                val fragment = WebFragment()
+                fragment.url =
                     "https://console.firebase.google.com/u/0/project/earntobank-8835b/authentication/users"
-                )
-                startActivity(intent)
+                currentFragment.value = fragment
             }
             R.id.fabAddWithdrawal -> {
                 val intent = Intent(this, HistoryActivity::class.java)
-                intent.putExtra("AppName",appName)
+                intent.putExtra("AppName", appName)
                 startActivity(intent)
             }
             R.id.fabNotification -> {
-                val intent = Intent(this, WebActivity::class.java)
-                intent.putExtra(
-                    "URL",
+                val fragment = WebFragment()
+                fragment.url =
                     "https://console.firebase.google.com/u/0/project/earntobank-8835b/notification"
-                )
-                startActivity(intent)
+                currentFragment.value = fragment
             }
         }
 
